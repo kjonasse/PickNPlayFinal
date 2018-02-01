@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>PICK 'n PLAY</title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Custom styles for this template -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#">PICK 'n PLAY</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/schedule">Schedule 2017</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/score">Scores/Results</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/team">Our Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('img/home-bg.jpg')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="page-heading">
+                        <h1>Schedule 2017</h1>
+                        <span class="subheading">2017 Weekly Game Schedule</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <hr>
+    <div class="main-container">
+        <div class="home-container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <h1 class="header">Weekly Schedule</h1>
+                    <table id = "table">
+                        
+                    </table>
+                    <button class = "btn btn-primary btn-lg btn-block" id = "submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; Pick 'n Play 2017</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="js/clean-blog.min.js"></script>
+    <script>
+        
+        //ajax call /api/getGames
+        $.ajax({
+          url: '/api/getGames',
+          method: 'GET'
+        }).done(function(response) {
+            // console.log(response);
+            var tableHeader = $('<tr>').addClass('bold').append(`<th id="home">Away Teams</th>
+                            <th id="away">Home Teams</th>`);
+            $('#table').append(tableHeader);
+
+            for (var i = 0; i < response.length; i++) {
+                var tableRow = 
+                    `<tr>
+                        <td>
+                            <label for="">
+                                <input type="radio" name="a${i}" id="a${i}" value="${response[i].homeTeam}"/>${response[i].homeTeam}
+                            </label>
+                        </td>
+                        <td>
+                            <label for="">
+                                <input type="radio" name="a${i}" id="b${i}" value="${response[i].awayTeam}"/>${response[i].awayTeam}
+                            </label>
+                        </td>
+                    </tr>`
+                $('#table').append(tableRow);
+            }
+
+        });
+
+        //submit picks
+        $('#submit').on('click', function(){
+            // console.log('submit button works');
+            var picks = [];
+
+            picks[0] = $('input[name=a0]:checked').val();
+            picks[1] = $('input[name=a1]:checked').val();
+            picks[2] = $('input[name=a2]:checked').val();
+            picks[3] = $('input[name=a3]:checked').val();
+            picks[4] = $('input[name=a4]:checked').val();
+            picks[5] = $('input[name=a5]:checked').val();
+            picks[6] = $('input[name=a6]:checked').val();
+            picks[7] = $('input[name=a7]:checked').val();
+            picks[8] = $('input[name=a8]:checked').val();
+            picks[9] = $('input[name=a9]:checked').val();
+            picks[10] = $('input[name=a10]:checked').val();
+            picks[11] = $('input[name=a11]:checked').val();
+            picks[12] = $('input[name=a12]:checked').val();
+            picks[13] = $('input[name=a13]:checked').val();
+            picks[14] = $('input[name=a14]:checked').val();
+            picks[15] = $('input[name=a15]:checked').val();
+
+            // console.log(picks);
+
+            $.ajax(
+                {
+                    method: 'POST',
+                    url: '/api/createPicks',
+                    dataType: "json",
+                    data: { 
+                        picks: picks 
+                    }
+                }
+            ).done(function(data) {
+                console.log('picks submitted to server');
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>

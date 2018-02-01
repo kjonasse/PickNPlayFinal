@@ -1,0 +1,37 @@
+   .card-body {
+        border: 3px solid #f1f1f1;
+    }
+    /* Full-width inputs */
+
+ /*   input[type=text],
+    input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+       
+        border: 1px solid #ccc;
+     
+    }*/
+    /* Set a style for all buttons */
+    /* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+   
+}
+
+  
+    /* Add a hover effect for buttons */
+
+    input:hover {
+        opacity: 0.8;
+    }
+
+    /* Add padding to containers */
+
+    .container {
+        padding: 25px;
+    }

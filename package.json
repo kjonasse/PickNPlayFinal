@@ -1,0 +1,32 @@
+{
+  "name": "PickNPlay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fain704/PickNPlay.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fain704/PickNPlay/issues"
+  },
+  "homepage": "https://github.com/fain704/PickNPlay#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "jsonwebtoken": "^8.1.0",
+    "mysql2": "^1.5.1",
+    "path": "^0.12.7",
+    "sequelize": "^4.27.0"
+  }
+}
